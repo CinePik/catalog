@@ -23,6 +23,7 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 # CinePik Catalog
+
 Node.js microservice for providing the tv catalog
 
 ## Description
@@ -48,6 +49,17 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Prisma
+
+```bash
+# If any changes are made to the schema.prisma file, run the following command to update the database
+# I creates a migration, updates the database (also seeds?), and updates the prisma client
+$ npm run prisma:migrate
+
+# If you only want to seed the database, run the following command
+$ npm run prisma:seed
+```
+
 ## Test
 
 ```bash
@@ -60,17 +72,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
