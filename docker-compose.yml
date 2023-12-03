@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: cinepik-catalog
+    build: .
+    ports:
+      - ${PORT:-8080}:${PORT:-8080}
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:${DB_PORT}/${POSTGRES_DB}?schema=${DB_SCHEMA}&sslmode=prefer
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - .env
+
+  db:
+    container_name: cinepik-catalog-db
+    image: postgres:15.5-alpine
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:

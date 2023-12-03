@@ -10,7 +10,6 @@ import { SeriesModule } from './series/series.module';
     ConfigModule.forRoot({
       ignoreEnvFile: false, // set to true to not load .env file and access environment variables from the runtime
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV ?? 'development'}`,
     }),
     MoviesModule,
     SeriesModule,
