@@ -3,7 +3,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/CinePik/catalog/actions/workflows/node.js.yml" target="_blank"><img src="https://github.com/CinePik/catalog/actions/workflows/node.js.yml/badge.svg" alt="Catalog CI Workflow Status" /></a>
+
+<a href="https://github.com/CinePik/catalog/actions/workflows/ci.yml" target="_blank"><img src="https://github.com/CinePik/catalog/actions/workflows/ci.yml/badge.svg" alt="Catalog CI Workflow Status" /></a>
+
+<a href="https://github.com/CinePik/catalog/actions/workflows/cd.yml" target="_blank"><img src="https://github.com/CinePik/catalog/actions/workflows/cd.yml/badge.svg" alt="Catalog CD Workflow Status" /></a>
+
 </p>
 
 # CinePik Catalog
