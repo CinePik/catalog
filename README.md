@@ -2,6 +2,10 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="100" alt="Nest Logo" /></a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/CinePik/catalog/actions/workflows/node.js.yml" target="_blank"><img src="https://github.com/CinePik/catalog/actions/workflows/node.js.yml/badge.svg" alt="Catalog CI Workflow Status" /></a>
+</p>
+
 # CinePik Catalog
 
 Node.js microservice for providing the tv catalog
