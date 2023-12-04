@@ -9,12 +9,12 @@ import { KeycloakModule } from './keycloak/keycloak.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      ignoreEnvFile: false, // set to true to not load .env file and access environment variables from the runtime
+      // ignoreEnvFile: false, // set to true to not load .env file and access environment variables from the runtime
       isGlobal: true,
     }),
+    KeycloakModule,
     MoviesModule,
     SeriesModule,
-    KeycloakModule,
   ],
   controllers: [AppController],
   providers: [AppService],
