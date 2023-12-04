@@ -22,7 +22,7 @@ COPY --from=build /app/tsconfig*.json ./
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma ./prisma
 # Expose the port the app runs on
-EXPOSE 8080
+EXPOSE ${PORT}
 
 # Construct database URL, otherwise it is not interpolated correctly
 # Command to run the application

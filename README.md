@@ -79,7 +79,7 @@ docker run -d --name cinepik-catalog-db  --env-file .env --network cinepik-netwo
 
 docker build -t cinepik-catalog .
 
-docker run -d -t --env-file .env --network cinepik-network -p 8080:8080 cinepik-catalog
+docker run -d -t --env-file .env --network cinepik-network -p 3001:3001 cinepik-catalog
 ```
 
 To manually upload the image to Docker Hub, run the following commands.
