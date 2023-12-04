@@ -6,37 +6,47 @@ import {
   Delete,
   Param,
   Body,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
+import { Unprotected, Roles } from 'nest-keycloak-connect';
 
 @Controller('movies')
 export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
 
   @Get()
+  @Unprotected()
   findAll() {
     return this.moviesService.findAll();
   }
 
   @Get(':id')
+  @Unprotected()
   findOne(@Param('id') id: string) {
     return this.moviesService.findOne(+id);
   }
 
   @Post()
+  @Roles({ roles: ['realm:app-admin'] })
   create(@Body() createMovieDto: CreateMovieDto) {
     return this.moviesService.create(createMovieDto);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
+  @Roles({ roles: ['realm:app-admin'] })
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateMovieDto: UpdateMovieDto,
+  ) {
     return this.moviesService.update(+id, updateMovieDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Roles({ roles: ['realm:app-admin'] })
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.moviesService.remove(+id);
   }
 }
