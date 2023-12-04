@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cinepik-catalog-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cinepik-catalog
+  template:
+    metadata:
+      labels:
+        app: cinepik-catalog
+    spec:
+      containers:
+        - image: lzukanovic/cinepik-catalog:latest
+          name: cinepik-catalog
+          env:
+            - name: PORT
+              value: '3001'
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: POSTGRES_DB
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: database-config
+                  key: DB_HOST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: database-config
+                  key: DB_PORT
+            - name: DB_SCHEMA
+              valueFrom:
+                configMapKeyRef:
+                  name: database-config
+                  key: DB_SCHEMA
+          ports:
+            - containerPort: 3001
+              name: server
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health/live
+          #     port: server
+          #   initialDelaySeconds: 20
+          #   periodSeconds: 3
+          # readinessProbe:
+          #   httpGet:
+          #     path: /health/ready
+          #     port: server
+          #   initialDelaySeconds: 20
+          #   periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cinepik-catalog
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3001
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: cinepik-catalog

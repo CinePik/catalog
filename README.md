@@ -101,3 +101,25 @@ docker-compose up --build
 
 docker-compose down
 ```
+
+## Kubernetes
+
+Before hand we must create a ConfigMap and Secret for the environment variables in the deployment file. These environment variables are used to construct the database connection string.
+Replace the values in the <> with the appropriate values.
+
+```bash
+# ConfigMap
+kubectl create configmap database-config --from-literal=DB_HOST=<host> --from-literal=DB_PORT=5432 --from-literal=DB_SCHEMA=public
+
+# Secret
+kubectl create secret generic database-credentials \
+  --from-literal=POSTGRES_USER=<username> \
+  --from-literal=POSTGRES_PASSWORD=<password> \
+  --from-literal=POSTGRES_DB=<db_name>
+```
+
+Then we can create the deployment and service.
+
+```bash
+kubectl apply -f k8s/cinepik-catalog.yml
+```
