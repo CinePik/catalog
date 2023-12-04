@@ -73,13 +73,13 @@ npm run test:cov
 To run the app in a docker container, run the following commands.
 
 ```bash
-docker network create cinepik-catalog-network
+docker network create cinepik-network
 
-docker run -d --name cinepik-catalog-db  --env-file .env --network cinepik-catalog-network -p 5432:5432 postgres:15.5-alpine
+docker run -d --name cinepik-catalog-db  --env-file .env --network cinepik-network -p 5432:5432 postgres:15.5-alpine
 
 docker build -t cinepik-catalog .
 
-docker run -d -t --env-file .env --network cinepik-catalog-network -p 8080:8080 cinepik-catalog
+docker run -d -t --env-file .env --network cinepik-network -p 8080:8080 cinepik-catalog
 ```
 
 To manually upload the image to Docker Hub, run the following commands.
