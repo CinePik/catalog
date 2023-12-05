@@ -18,6 +18,26 @@ spec:
           env:
             - name: PORT
               value: '3001'
+            - name: KEYCLOAK_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: auth-credentials
+                  key: KEYCLOAK_CLIENT_SECRET
+            - name: KEYCLOAK_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: auth-config
+                  key: KEYCLOAK_BASE_URL
+            - name: KEYCLOAK_REALM
+              valueFrom:
+                configMapKeyRef:
+                  name: auth-config
+                  key: KEYCLOAK_REALM
+            - name: KEYCLOAK_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: auth-config
+                  key: KEYCLOAK_CLIENT_ID
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
