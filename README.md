@@ -109,7 +109,10 @@ Replace the values in the <> with the appropriate values.
 
 ```bash
 # ConfigMap
-kubectl create configmap database-config --from-literal=DB_HOST=<host> --from-literal=DB_PORT=5432 --from-literal=DB_SCHEMA=public
+kubectl create configmap database-config \
+  --from-literal=DB_HOST=<db_host> \
+  --from-literal=DB_PORT=<db_port> \
+  --from-literal=DB_SCHEMA=<db_schema>
 
 # Secret
 kubectl create secret generic database-credentials \
