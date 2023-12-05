@@ -27,7 +27,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: auth-config
-                  key: KEYCLOAK_BASE_URL
+                  key: KEYCLOAK_BASE_URL_EXTERNAL
             - name: KEYCLOAK_REALM
               valueFrom:
                 configMapKeyRef:
