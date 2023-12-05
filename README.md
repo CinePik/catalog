@@ -123,7 +123,7 @@ kubectl create secret generic database-credentials \
 
 For authorization purposes we also need to define:
 
-- a ConfigMap named auth-config with the following keys: KEYCLOAK_BASE_URL_EXTERNAL, KEYCLOAK_REALM, KEYCLOAK_CLIENT_ID
+- a ConfigMap named auth-config with the following keys: KEYCLOAK_BASE_URL, KEYCLOAK_REALM, KEYCLOAK_CLIENT_ID
 - a Secret named auth-credentials with the following keys: KEYCLOAK_CLIENT_SECRET
 
 Then we can create the deployment and service.
