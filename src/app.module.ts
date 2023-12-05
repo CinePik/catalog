@@ -4,13 +4,15 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MoviesModule } from './movies/movies.module';
 import { SeriesModule } from './series/series.module';
+import { KeycloakModule } from './keycloak/keycloak.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      ignoreEnvFile: false, // set to true to not load .env file and access environment variables from the runtime
+      ignoreEnvFile: false,
       isGlobal: true,
     }),
+    KeycloakModule,
     MoviesModule,
     SeriesModule,
   ],

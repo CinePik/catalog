@@ -1,0 +1,14 @@
+{
+    "version": "0.2",
+    "ignorePaths": [],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [
+        "cinepik",
+        "dockerhub",
+        "keycloak",
+        "nestjs"
+    ],
+    "ignoreWords": [],
+    "import": []
+}

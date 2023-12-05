@@ -8,6 +8,11 @@ services:
       - ${PORT:-3001}:${PORT:-3001}
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:${DB_PORT}/${POSTGRES_DB}?schema=${DB_SCHEMA}&sslmode=prefer
+      KEYCLOAK_BASE_URL: ${KEYCLOAK_BASE_URL}
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
+      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
+      KEYCLOAK_ADMIN_CLIENT_SECRET: ${KEYCLOAK_ADMIN_CLIENT_SECRET}
     depends_on:
       - db
     volumes:
@@ -15,6 +20,8 @@ services:
       - /app/node_modules
     env_file:
       - .env
+    networks:
+      - cinepik-network
 
   db:
     container_name: cinepik-catalog-db
@@ -25,6 +32,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
     env_file:
       - .env
+    networks:
+      - cinepik-network
 
 volumes:
   postgres_data:
+
+
+networks:
+  cinepik-network:
+    name: cinepik-network
