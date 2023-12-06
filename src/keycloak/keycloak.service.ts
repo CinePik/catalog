@@ -1,12 +1,5 @@
-import {
-  HttpException,
-  Injectable,
-  Logger,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AxiosError } from 'axios';
-import { catchError, firstValueFrom } from 'rxjs';
 
 type LoginResponse = {
   access_token: string;

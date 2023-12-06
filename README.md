@@ -97,7 +97,10 @@ docker push <dockerhub_username>/cinepik-catalog:latest
 You can also setup the database and application with docker-compose.
 
 ```bash
-docker-compose up --build
+# Run the database and application
+docker-compose up --build db app
+# Trigger database seeding
+docker-compose up --build seed
 
 docker-compose down
 ```
@@ -130,4 +133,12 @@ Then we can create the deployment and service.
 
 ```bash
 kubectl apply -f k8s/cinepik-catalog.yml
+```
+
+### Seed the database in Kubernetes
+
+To manually seed the database in Kubernetes, run the following command, which create a Job that runs the seed script.
+
+```bash
+kubectl apply -f k8s/seed-job.yml
 ```
