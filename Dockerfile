@@ -24,6 +24,9 @@ COPY --from=build /app/prisma ./prisma
 # Expose the port the app runs on
 EXPOSE ${PORT}
 
+# Run prisma generate as an additional safety measure
+RUN npx prisma generate
+
 # Construct database URL, otherwise it is not interpolated correctly
 # Command to run the application
 CMD export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}?schema=${DB_SCHEMA}&sslmode=prefer" && npm run start:migrate:prod
