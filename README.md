@@ -107,21 +107,11 @@ docker-compose down
 
 ## Kubernetes
 
-Before hand we must create a ConfigMap and Secret for the environment variables in the deployment file. These environment variables are used to construct the database connection string.
-Replace the values in the <> with the appropriate values.
+Beforehand we must create a Secret for the database url environment variable in the deployment file.
+Replace the value in the <> with the appropriate value.
 
 ```bash
-# ConfigMap
-kubectl create configmap database-config \
-  --from-literal=DB_HOST=<db_host> \
-  --from-literal=DB_PORT=<db_port> \
-  --from-literal=DB_SCHEMA=<db_schema>
-
-# Secret
-kubectl create secret generic database-credentials \
-  --from-literal=POSTGRES_USER=<username> \
-  --from-literal=POSTGRES_PASSWORD=<password> \
-  --from-literal=POSTGRES_DB=<db_name>
+kubectl create secret generic database-credentials --from-literal=DATABASE_URL=<db_url>
 ```
 
 For authorization purposes we also need to define:

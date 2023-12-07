@@ -5,7 +5,6 @@ WORKDIR /app
 COPY package*.json ./
 COPY tsconfig*.json ./
 COPY prisma ./prisma/
-COPY entrypoint.sh ./
 # Install dependencies
 RUN npm install
 # Copy the rest of the application code
@@ -22,16 +21,10 @@ COPY --from=build /app/package*.json ./
 COPY --from=build /app/tsconfig*.json ./
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma ./prisma
-COPY --from=build /app/entrypoint.sh ./
-# Make entrypoint.sh executable
-RUN chmod +x entrypoint.sh
 # Expose the port the app runs on
 EXPOSE ${PORT}
-
 # Run prisma generate as an additional safety measure
 RUN npx prisma generate
 
-# Construct database URL, otherwise it is not interpolated correctly
-ENTRYPOINT ["./entrypoint.sh"]
 # Command to run the application
 CMD npm run start:migrate:prod

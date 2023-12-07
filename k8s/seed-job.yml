@@ -10,35 +10,10 @@ spec:
           image: lzukanovic/cinepik-catalog:latest
           command: ['npm', 'run', 'prisma:seed']
           env:
-            - name: POSTGRES_USER
+            - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
                   name: database-credentials
-                  key: POSTGRES_USER
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: database-credentials
-                  key: POSTGRES_PASSWORD
-            - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  name: database-credentials
-                  key: POSTGRES_DB
-            - name: DB_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: database-config
-                  key: DB_HOST
-            - name: DB_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: database-config
-                  key: DB_PORT
-            - name: DB_SCHEMA
-              valueFrom:
-                configMapKeyRef:
-                  name: database-config
-                  key: DB_SCHEMA
+                  key: DATABASE_URL
       restartPolicy: Never
   backoffLimit: 2
