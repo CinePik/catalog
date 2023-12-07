@@ -1,12 +1,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: cinepike-catalog-seeding-job
+  name: cinepik-catalog-seeding-job
 spec:
   template:
     spec:
       containers:
-        - name: cinepike-catalog-seeder
+        - name: cinepik-catalog-seeder
           image: lzukanovic/cinepik-catalog:latest
           command: ['npm', 'run', 'prisma:seed']
           env:
