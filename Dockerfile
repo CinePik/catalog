@@ -13,7 +13,7 @@ COPY . .
 RUN npm run build
 
 ## Stage 2: Run
-FROM node:18
+FROM node:18-alpine
 WORKDIR /app
 # Copy built assets from the build stage
 COPY --from=build /app/node_modules ./node_modules
