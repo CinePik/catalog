@@ -5,6 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY tsconfig*.json ./
 COPY prisma ./prisma/
+COPY entrypoint.sh ./
 # Install dependencies
 RUN npm install
 # Copy the rest of the application code
@@ -13,7 +14,7 @@ COPY . .
 RUN npm run build
 
 ## Stage 2: Run
-FROM node:18-alpine
+FROM node:18
 WORKDIR /app
 # Copy built assets from the build stage
 COPY --from=build /app/node_modules ./node_modules
@@ -21,6 +22,9 @@ COPY --from=build /app/package*.json ./
 COPY --from=build /app/tsconfig*.json ./
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma ./prisma
+COPY --from=build /app/entrypoint.sh ./
+# Make entrypoint.sh executable
+RUN chmod +x entrypoint.sh
 # Expose the port the app runs on
 EXPOSE ${PORT}
 
@@ -28,5 +32,6 @@ EXPOSE ${PORT}
 RUN npx prisma generate
 
 # Construct database URL, otherwise it is not interpolated correctly
+ENTRYPOINT ["./entrypoint.sh"]
 # Command to run the application
-CMD export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}?schema=${DB_SCHEMA}&sslmode=prefer" && npm run start:migrate:prod
+CMD npm run start:migrate:prod
