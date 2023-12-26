@@ -47,7 +47,7 @@ export class MoviesController {
   @Unprotected()
   @ApiOperation({
     summary: 'Returns all movies',
-    description: 'Returns all movies in the datable.',
+    description: 'Returns all movies in the database.',
   })
   findAll(): Promise<Movie[]> {
     return this.moviesService.findAll();
