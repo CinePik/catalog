@@ -4,7 +4,10 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3001);
+
+  console.log(`Listening on port ${process.env.NODE_PORT}`);
+  await app.listen(process.env.PORT);
+
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
