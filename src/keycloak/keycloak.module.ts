@@ -12,7 +12,6 @@ import {
 } from 'nest-keycloak-connect';
 import { KeycloakConfigService } from 'src/config/keycloak-config.service';
 import { ConfigModule } from 'src/config/config.module';
-import { KeycloakService } from './keycloak.service';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({
@@ -26,7 +25,6 @@ import { APP_GUARD } from '@nestjs/core';
   controllers: [AppController],
 
   providers: [
-    KeycloakService,
     AppService,
 
     // This adds a global level authentication guard,
@@ -77,6 +75,5 @@ import { APP_GUARD } from '@nestjs/core';
       useClass: RoleGuard,
     },
   ],
-  exports: [KeycloakService],
 })
 export class KeycloakModule {}
