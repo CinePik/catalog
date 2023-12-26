@@ -16,27 +16,27 @@ spec:
         - image: lzukanovic/cinepik-catalog:latest
           name: cinepik-catalog
           env:
-            - name: PORT
+            - name: NODE_PORT
               value: '3001'
             - name: KEYCLOAK_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: auth-credentials
+                  name: keycloak-credentials
                   key: KEYCLOAK_CLIENT_SECRET
             - name: KEYCLOAK_BASE_URL
               valueFrom:
                 configMapKeyRef:
-                  name: auth-config
+                  name: keycloak-config
                   key: KEYCLOAK_BASE_URL
             - name: KEYCLOAK_REALM
               valueFrom:
                 configMapKeyRef:
-                  name: auth-config
+                  name: keycloak-config
                   key: KEYCLOAK_REALM
             - name: KEYCLOAK_CLIENT_ID
               valueFrom:
                 configMapKeyRef:
-                  name: auth-config
+                  name: keycloak-config
                   key: KEYCLOAK_CLIENT_ID
             - name: DATABASE_URL
               valueFrom:
