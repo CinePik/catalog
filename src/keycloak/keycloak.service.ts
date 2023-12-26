@@ -20,20 +20,5 @@ type UserInfoResponse = {
 
 @Injectable()
 export class KeycloakService {
-  private baseURL: string;
-  private realm: string;
-  private clientId: string;
-  private clientSecret: string;
-  private adminClientSecret: string;
-  private readonly logger = new Logger(KeycloakService.name);
-
-  constructor(private readonly configService: ConfigService) {
-    this.baseURL = this.configService.get('KEYCLOAK_BASE_URL');
-    this.realm = this.configService.get('KEYCLOAK_REALM');
-    this.clientId = this.configService.get('KEYCLOAK_CLIENT_ID');
-    this.clientSecret = this.configService.get('KEYCLOAK_CLIENT_SECRET');
-    this.adminClientSecret = this.configService.get(
-      'KEYCLOAK_ADMIN_CLIENT_SECRET',
-    );
-  }
+  constructor(private readonly configService: ConfigService) {}
 }
