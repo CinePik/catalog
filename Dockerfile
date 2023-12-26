@@ -33,7 +33,5 @@ EXPOSE ${NODE_PORT}
 # Run prisma generate as an additional safety measure
 RUN npx prisma generate
 
-USER node
-
 # Command to run the application
 CMD npm run start:migrate:prod
