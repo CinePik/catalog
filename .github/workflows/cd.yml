@@ -38,8 +38,8 @@ jobs:
           file: ./Dockerfile
           push: true
            tags: |
-            ${{ secrets.DOCKERHUB_REPO }}/cinepik-catalog:latest
-            ${{ secrets.DOCKERHUB_REPO }}/cinepik-catalog:${{ env.TAG }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/cinepik-catalog:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/cinepik-catalog:${{ env.TAG }}
             ${{ secrets.DOCKERHUB_USERNAME }}/cinepik-catalog:${{ steps.current-time.outputs.formattedTime }}
 
       - name: Notify success
