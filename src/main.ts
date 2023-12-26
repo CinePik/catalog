@@ -10,8 +10,8 @@ async function bootstrap() {
 
   // Setup Swagger
   const config = new DocumentBuilder()
-    .setTitle('CinePik Authentication API')
-    .setDescription('The CinePik Authentication microservice.')
+    .setTitle('CinePik Catalog API')
+    .setDescription('The CinePik Catalog microservice.')
     .setVersion(version)
     .addBearerAuth()
     .build();

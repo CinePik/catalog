@@ -9,11 +9,27 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
-import { CreateMovieDto } from './dto/create-movie.dto';
-import { UpdateMovieDto } from './dto/update-movie.dto';
+import { CreateMovieDto } from './dto/request/create-movie.dto';
+import { UpdateMovieDto } from './dto/request/update-movie.dto';
 import { Unprotected, Roles } from 'nest-keycloak-connect';
+import {
+  ApiTags,
+  ApiInternalServerErrorResponse,
+  ApiUnauthorizedResponse,
+  ApiBadRequestResponse,
+} from '@nestjs/swagger';
 
 @Controller('movies')
+@ApiTags('movies')
+@ApiInternalServerErrorResponse({
+  description: 'There was an error processing this request.',
+})
+@ApiUnauthorizedResponse({
+  description: 'User not authorized correctly.',
+})
+@ApiBadRequestResponse({
+  description: 'Bad request.',
+})
 export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
 

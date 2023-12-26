@@ -9,11 +9,27 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { SeriesService } from './series.service';
-import { CreateSeriesDto } from './dto/create-series.dto';
-import { UpdateSeriesDto } from './dto/update-series.dto';
+import { CreateSeriesDto } from './dto/request/create-series.dto';
+import { UpdateSeriesDto } from './dto/request/update-series.dto';
 import { Unprotected, Roles } from 'nest-keycloak-connect';
+import {
+  ApiTags,
+  ApiInternalServerErrorResponse,
+  ApiUnauthorizedResponse,
+  ApiBadRequestResponse,
+} from '@nestjs/swagger';
 
 @Controller('series')
+@ApiTags('series')
+@ApiInternalServerErrorResponse({
+  description: 'There was an error processing this request.',
+})
+@ApiUnauthorizedResponse({
+  description: 'User not authorized correctly.',
+})
+@ApiBadRequestResponse({
+  description: 'Bad request.',
+})
 export class SeriesController {
   constructor(private readonly seriesService: SeriesService) {}
 
