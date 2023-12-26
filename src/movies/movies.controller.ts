@@ -48,21 +48,20 @@ export class MoviesController {
     summary: 'Returns all movies',
     description: 'Returns all movies in the datable.',
   })
-  findAll() {
+  findAll(): Promise<Movie[]> {
     return this.moviesService.findAll();
   }
 
   @Get(':id')
   @ApiOkResponse({
     description: 'Movie found successfully.',
-    type: Promise<Movie>,
   })
   @Unprotected()
   @ApiOperation({
     summary: 'Returns a movie',
-    description: 'Returns a specific movie with an <id>.',
+    description: 'Returns a specific movie with an id.',
   })
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<Movie> {
     return this.moviesService.findOne(+id);
   }
 
@@ -85,17 +84,16 @@ export class MoviesController {
   @Roles({ roles: ['realm:app-admin'] })
   @ApiOkResponse({
     description: 'Movie updated successfully.',
-    type: Promise<Movie>,
   })
   @ApiOperation({
     summary: 'Update a movie',
-    description: 'Admins can update a movie with an <id>.',
+    description: 'Admins can update a movie with an id.',
   })
   @ApiBearerAuth()
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateMovieDto: UpdateMovieDto,
-  ) {
+  ): Promise<Movie> {
     return this.moviesService.update(+id, updateMovieDto);
   }
 
@@ -107,10 +105,10 @@ export class MoviesController {
   })
   @ApiOperation({
     summary: 'Delete a movie',
-    description: 'Admins can delete a movie with an <id>.',
+    description: 'Admins can delete a movie with an id.',
   })
   @ApiBearerAuth()
-  remove(@Param('id', ParseIntPipe) id: number) {
+  remove(@Param('id', ParseIntPipe) id: number): Promise<Movie> {
     return this.moviesService.remove(+id);
   }
 }
