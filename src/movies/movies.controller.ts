@@ -23,6 +23,7 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import { Movie, Prisma } from '@prisma/client';
+import { MovieResponseDto } from './dto/response/movie-response.dto';
 
 @Controller('movies')
 @ApiTags('movies')
@@ -41,7 +42,7 @@ export class MoviesController {
   @Get()
   @ApiOkResponse({
     description: 'Movies found successfully.',
-    type: Promise<[Movie]>,
+    type: [MovieResponseDto],
   })
   @Unprotected()
   @ApiOperation({
@@ -55,6 +56,7 @@ export class MoviesController {
   @Get(':id')
   @ApiOkResponse({
     description: 'Movie found successfully.',
+    type: MovieResponseDto,
   })
   @Unprotected()
   @ApiOperation({
@@ -69,11 +71,11 @@ export class MoviesController {
   @Roles({ roles: ['realm:app-admin'] })
   @ApiCreatedResponse({
     description: 'Movie create successfully.',
-    type: Promise<Movie>,
+    type: MovieResponseDto,
   })
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Create a new movie',
+    summary: 'Creates a new movie',
     description: 'Admins can create a new movie.',
   })
   create(@Body() createMovieDto: CreateMovieDto): Promise<Movie> {
@@ -84,9 +86,10 @@ export class MoviesController {
   @Roles({ roles: ['realm:app-admin'] })
   @ApiOkResponse({
     description: 'Movie updated successfully.',
+    type: MovieResponseDto,
   })
   @ApiOperation({
-    summary: 'Update a movie',
+    summary: 'Updates a movie',
     description: 'Admins can update a movie with an id.',
   })
   @ApiBearerAuth()
@@ -101,10 +104,10 @@ export class MoviesController {
   @Roles({ roles: ['realm:app-admin'] })
   @ApiOkResponse({
     description: 'Movie deleted successfully.',
-    type: Promise<Movie>,
+    type: MovieResponseDto,
   })
   @ApiOperation({
-    summary: 'Delete a movie',
+    summary: 'Deletes a movie',
     description: 'Admins can delete a movie with an id.',
   })
   @ApiBearerAuth()
