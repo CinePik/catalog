@@ -15,6 +15,13 @@ spec:
       containers:
         - image: lzukanovic/cinepik-catalog:latest
           name: cinepik-catalog
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
           env:
             - name: NODE_PORT
               value: '3001'
