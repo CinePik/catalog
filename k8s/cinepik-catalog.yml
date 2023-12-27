@@ -13,7 +13,7 @@ spec:
         app: cinepik-catalog
     spec:
       containers:
-        - image: lzukanovic/cinepik-catalog:latest
+        - image: mevljas/cinepik-catalog:latest
           name: cinepik-catalog
           resources:
             requests:
