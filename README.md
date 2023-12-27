@@ -149,10 +149,12 @@ kubectl apply -f k8s/seed-job.yml
 
 ```bash
 kubectl get pods
-kubectl delete deployment cinepik-keycloak-deployment
+kubectl delete deployment cinepik-catalog-deployment
 kubectl delete configmap <configmap name>
-kubectl rollout restart deployment/cinepik-keycloak-deployment
+kubectl rollout restart deployment/cinepik-catalog-deployment
 kubectl logs <pod-id>
 kubectl describe secret <secret-name>
 kubectl get secret <secret-name>
+kubectl get service
+kubectl describe pods
 ```

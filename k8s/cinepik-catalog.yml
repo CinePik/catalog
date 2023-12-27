@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: cinepik-catalog-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: cinepik-catalog
@@ -52,4 +52,3 @@ spec:
                   key: DATABASE_URL
           ports:
             - containerPort: 3001
-              name: server
