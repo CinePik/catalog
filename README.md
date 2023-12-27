@@ -105,24 +105,36 @@ docker-compose up --build seed
 docker-compose down
 ```
 
-## Kubernetes
+## Kubernetes deployment
 
-Beforehand we must create a Secret for the database url environment variable in the deployment file.
+### Setup configs
+
+Create config map for keycloak
+
+```bash
+kubectl create configmap keycloak-config --from-literal=KEYCLOAK_BASE_URL="http://cinepik-keycloak" --from-literal=KEYCLOAK_CLIENT_ID="nest-auth" --from-literal=KEYCLOAK_PORT=8080 --from-literal=KEYCLOAK_REALM="cinepik"
+```
+
+Create secret for keycloak
+
+```bash
+kubectl create secret generic keycloak-config --from-literal=KEYCLOAK_ADMIN="admin" --from-literal=KEYCLOAK_ADMIN_PASSWORD="<REPLACE_ME>" --from-literal=KEYCLOAK_CLIENT_SECRET="<REPLACE_ME>" --from-literal=KEYCLOAK_REALM_RSA_PUBLIC_KEY="<REPLACE_ME>"
+```
+
+Create a Secret for the database url environment variable in the deployment file.
 Replace the value in the <> with the appropriate value.
 
 ```bash
 kubectl create secret generic database-credentials --from-literal=DATABASE_URL=<db_url>
 ```
 
-For authorization purposes we also need to define:
+### Apply changes
 
-- a ConfigMap named auth-config with the following keys: KEYCLOAK_BASE_URL, KEYCLOAK_REALM, KEYCLOAK_CLIENT_ID
-- a Secret named auth-credentials with the following keys: KEYCLOAK_CLIENT_SECRET
-
-Then we can create the deployment and service.
+We can create the deployment and service.
 
 ```bash
 kubectl apply -f k8s/cinepik-catalog.yml
+kubectl apply -f k8s/cinepik-catalog-svc.yml
 ```
 
 ### Seed the database in Kubernetes
@@ -131,4 +143,18 @@ To manually seed the database in Kubernetes, run the following command, which cr
 
 ```bash
 kubectl apply -f k8s/seed-job.yml
+```
+
+### Other useful commands
+
+```bash
+kubectl get pods
+kubectl delete deployment cinepik-catalog-deployment
+kubectl delete configmap <configmap name>
+kubectl rollout restart deployment/cinepik-catalog-deployment
+kubectl logs <pod-id>
+kubectl describe secret <secret-name>
+kubectl get secret <secret-name>
+kubectl get service
+kubectl describe pods
 ```
