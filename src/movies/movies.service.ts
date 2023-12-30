@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMovieDto } from './dto/request/create-movie.dto';
 import { UpdateMovieDto } from './dto/request/update-movie.dto';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { Movie } from '@prisma/client';
 
 @Injectable()
