@@ -13,7 +13,7 @@
 
 # CinePik Catalog
 
-Node.js microservice for providing the tv catalog
+Node.js microservice for providing the tv catalog.
 
 ## Installation
 
