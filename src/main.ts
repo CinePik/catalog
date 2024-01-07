@@ -21,6 +21,9 @@ async function bootstrap() {
   // Enable DTO validation
   app.useGlobalPipes(new ValidationPipe());
 
+  // Starts listening for shutdown hooks
+  app.enableShutdownHooks();
+
   console.log(`App version ${version}`);
   console.log(`Listening on port ${port}`);
   await app.listen(port);

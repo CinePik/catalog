@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MoviesModule } from './movies/movies.module';
 import { SeriesModule } from './series/series.module';
 import { KeycloakModule } from './keycloak/keycloak.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { KeycloakModule } from './keycloak/keycloak.module';
     KeycloakModule,
     MoviesModule,
     SeriesModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
