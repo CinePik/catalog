@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: cinepik-catalog-seeder
-          image: lzukanovic/cinepik-catalog:latest
+          image: sebam/cinepik-catalog:latest
           command: ['npm', 'run', 'prisma:seed']
           env:
             - name: DATABASE_URL
