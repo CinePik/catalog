@@ -15,6 +15,11 @@ services:
       - .env
     networks:
       - cinepik-network
+    logging:
+      driver: gelf
+      options:
+        gelf-address: udp://host.docker.internal:12201
+        tag: cinepik-catalog-app
 
   seed:
     container_name: cinepik-catalog-seed
@@ -29,6 +34,11 @@ services:
       - .env
     networks:
       - cinepik-network
+    logging:
+      driver: gelf
+      options:
+        gelf-address: udp://host.docker.internal:12201
+        tag: cinepik-catalog-seed
 
   db:
     container_name: cinepik-catalog-db
@@ -41,6 +51,11 @@ services:
       - .env
     networks:
       - cinepik-network
+    logging:
+      driver: gelf
+      options:
+        gelf-address: udp://host.docker.internal:12201
+        tag: cinepik-catalog-db
 
 volumes:
   postgres_data:
