@@ -15,6 +15,11 @@
 
 Node.js microservice for providing the tv catalog.
 
+## Documentation
+
+OpenAPI documentation available at [http://localhost:3000/api](http://localhost:3001/api).  
+For accessing secured endpoints add your `access_token` provided to you at login to the `Authorization` header.
+
 ## Installation
 
 ```bash
@@ -37,7 +42,7 @@ npm run start:prod
 ## Prisma
 
 If any changes are made to the schema.prisma file, run the following command to update the database.
-I creates a migration, updates the database (also seeds?), and updates the Prisma client.
+It creates a migration, updates the database (also seeds?), and updates the Prisma client.
 
 ```bash
 npm run prisma:migrate:dev
