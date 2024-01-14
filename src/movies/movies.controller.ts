@@ -22,8 +22,9 @@ import {
   ApiOkResponse,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { Movie, Prisma } from '@prisma/client';
+import { Movie } from '@prisma/client';
 import { MovieResponseDto } from './dto/response/movie-response.dto';
+import { MetricsService } from 'src/metrics/metrics.service';
 
 @Controller('movies')
 @ApiTags('movies')
@@ -37,7 +38,10 @@ import { MovieResponseDto } from './dto/response/movie-response.dto';
   description: 'Bad request.',
 })
 export class MoviesController {
-  constructor(private readonly moviesService: MoviesService) {}
+  constructor(
+    private readonly moviesService: MoviesService,
+    private metricsService: MetricsService,
+  ) {}
 
   @Get()
   @ApiOkResponse({
@@ -50,7 +54,9 @@ export class MoviesController {
     description: 'Returns all movies in the database.',
   })
   findAll(): Promise<Movie[]> {
-    return this.moviesService.findAll();
+    return this.metricsService.handleRequest(() =>
+      this.moviesService.findAll(),
+    );
   }
 
   @Get(':id')
@@ -64,7 +70,9 @@ export class MoviesController {
     description: 'Returns a specific movie with an id.',
   })
   findOne(@Param('id') id: string): Promise<Movie> {
-    return this.moviesService.findOne(+id);
+    return this.metricsService.handleRequest(() =>
+      this.moviesService.findOne(+id),
+    );
   }
 
   @Post()
@@ -79,7 +87,9 @@ export class MoviesController {
     description: 'Admins can create a new movie.',
   })
   create(@Body() createMovieDto: CreateMovieDto): Promise<Movie> {
-    return this.moviesService.create(createMovieDto);
+    return this.metricsService.handleRequest(() =>
+      this.moviesService.create(createMovieDto),
+    );
   }
 
   @Put(':id')
@@ -97,7 +107,9 @@ export class MoviesController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateMovieDto: UpdateMovieDto,
   ): Promise<Movie> {
-    return this.moviesService.update(+id, updateMovieDto);
+    return this.metricsService.handleRequest(() =>
+      this.moviesService.update(+id, updateMovieDto),
+    );
   }
 
   @Delete(':id')
@@ -112,6 +124,8 @@ export class MoviesController {
   })
   @ApiBearerAuth()
   remove(@Param('id', ParseIntPipe) id: number): Promise<Movie> {
-    return this.moviesService.remove(+id);
+    return this.metricsService.handleRequest(() =>
+      this.moviesService.remove(+id),
+    );
   }
 }

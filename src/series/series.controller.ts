@@ -25,6 +25,7 @@ import {
 import { Series } from '@prisma/client';
 import { MovieResponseDto } from 'src/movies/dto/response/movie-response.dto';
 import { SeriesResponseDto } from './dto/response/series-response.dto';
+import { MetricsService } from 'src/metrics/metrics.service';
 
 @Controller('series')
 @ApiTags('series')
@@ -38,7 +39,10 @@ import { SeriesResponseDto } from './dto/response/series-response.dto';
   description: 'Bad request.',
 })
 export class SeriesController {
-  constructor(private readonly seriesService: SeriesService) {}
+  constructor(
+    private readonly seriesService: SeriesService,
+    private metricsService: MetricsService,
+  ) {}
 
   @Get()
   @Unprotected()
@@ -51,7 +55,9 @@ export class SeriesController {
     description: 'Returns all series in the database.',
   })
   findAll(): Promise<Series[]> {
-    return this.seriesService.findAll();
+    return this.metricsService.handleRequest(() =>
+      this.seriesService.findAll(),
+    );
   }
 
   @Get(':id')
@@ -65,7 +71,9 @@ export class SeriesController {
     description: 'Returns specific series with an id.',
   })
   findOne(@Param('id') id: string): Promise<Series> {
-    return this.seriesService.findOne(+id);
+    return this.metricsService.handleRequest(() =>
+      this.seriesService.findOne(+id),
+    );
   }
 
   @Post()
@@ -80,7 +88,9 @@ export class SeriesController {
     description: 'Admins can create a new series.',
   })
   create(@Body() createSeriesDto: CreateSeriesDto): Promise<Series> {
-    return this.seriesService.create(createSeriesDto);
+    return this.metricsService.handleRequest(() =>
+      this.seriesService.create(createSeriesDto),
+    );
   }
 
   @Put(':id')
@@ -98,7 +108,9 @@ export class SeriesController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateSeriesDto: UpdateSeriesDto,
   ): Promise<Series> {
-    return this.seriesService.update(+id, updateSeriesDto);
+    return this.metricsService.handleRequest(() =>
+      this.seriesService.update(+id, updateSeriesDto),
+    );
   }
 
   @Delete(':id')
@@ -113,6 +125,8 @@ export class SeriesController {
     description: 'Admins can delete a series with an id.',
   })
   remove(@Param('id', ParseIntPipe) id: number): Promise<Series> {
-    return this.seriesService.remove(+id);
+    return this.metricsService.handleRequest(() =>
+      this.seriesService.remove(+id),
+    );
   }
 }
