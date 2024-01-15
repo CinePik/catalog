@@ -2,13 +2,11 @@ import { HttpService } from '@nestjs/axios';
 import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { Series } from '@prisma/client';
 import { AxiosError } from 'axios';
 import { firstValueFrom, catchError } from 'rxjs';
 import { ShowResponseDto } from './dto/response/all/show-response.dto';
 import { ShowDetailResponseDto } from './dto/response/one/show-detail-response.dto';
 import { ShowDetailWrapperResponseDto } from './dto/response/one/show-detail-wrapper-response.dto';
-import { SimilarShowDetailResponseDto } from './dto/response/similar-show-response.dto';
 import { ShowSeasonsResponseDto } from './dto/response/one/show-season-response.dto';
 import { ShowEpisodeResponseDto } from './dto/response/one/show-episode-response.dto';
 

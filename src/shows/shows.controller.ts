@@ -22,11 +22,11 @@ import { ShowDetailWrapperResponseDto } from './dto/response/one/show-detail-wra
   description: 'Bad request.',
 })
 export class ShowsController {
-  constructor(private readonly seriesService: ShowsService) {}
+  constructor(private readonly showsService: ShowsService) {}
 
   @Get()
   @ApiOkResponse({
-    description: 'Series found successfully.',
+    description: 'Shows found successfully.',
     type: [ShowResponseDto],
   })
   @ApiOperation({
@@ -34,7 +34,7 @@ export class ShowsController {
     description: 'Returns all shows in the database.',
   })
   findAll(): Promise<ShowResponseDto[]> {
-    return this.seriesService.findAll();
+    return this.showsService.findAll();
   }
 
   @Get(':id')
@@ -47,6 +47,6 @@ export class ShowsController {
     description: 'Returns specific show with an id.',
   })
   findOne(@Param('id') id: string): Promise<ShowDetailWrapperResponseDto> {
-    return this.seriesService.findOne(+id);
+    return this.showsService.findOne(+id);
   }
 }
