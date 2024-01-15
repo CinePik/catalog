@@ -13,9 +13,11 @@ import {
 import { KeycloakConfigService } from 'src/config/keycloak-config.service';
 import { ConfigModule } from 'src/config/config.module';
 import { APP_GUARD } from '@nestjs/core';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
+    HttpModule,
     KeycloakConnectModule.registerAsync({
       useExisting: KeycloakConfigService,
       imports: [ConfigModule],

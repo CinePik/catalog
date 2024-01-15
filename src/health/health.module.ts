@@ -8,6 +8,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Module({
   imports: [TerminusModule, HttpModule],
   controllers: [HealthController],
-  providers: [HttpModule, ManualHealthIndicator, PrismaService],
+  providers: [ManualHealthIndicator, PrismaService],
 })
 export class HealthModule {}
