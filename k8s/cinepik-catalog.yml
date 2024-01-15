@@ -50,6 +50,11 @@ spec:
                 secretKeyRef:
                   name: database-credentials
                   key: DATABASE_URL
+            - name: MOVIES_RAPID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: nest-credentials
+                  key: MOVIES_RAPID_API_KEY
           ports:
             - containerPort: 3001
               name: server

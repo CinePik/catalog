@@ -133,6 +133,12 @@ Replace the value in the <> with the appropriate value.
 kubectl create secret generic database-credentials --from-literal=DATABASE_URL=<db_url>
 ```
 
+Create Nest secret.
+
+```bash
+kubectl create secret generic nest-credentials --from-literal=MOVIES_RAPID_API_KEY=<REPLACE_ME>
+```
+
 ### Apply changes
 
 We can create the deployment and service.
