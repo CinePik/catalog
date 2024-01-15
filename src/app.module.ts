@@ -6,6 +6,8 @@ import { MoviesModule } from './movies/movies.module';
 import { SeriesModule } from './series/series.module';
 import { KeycloakModule } from './keycloak/keycloak.module';
 import { HealthModule } from './health/health.module';
+import { MovieDatabaseService } from './movie-database/movie-database.service';
+import { MovieMiniDatabaseService } from './movie-mini-database/movie-mini-database.service';
 
 @Module({
   imports: [
@@ -19,6 +21,6 @@ import { HealthModule } from './health/health.module';
     HealthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, MovieDatabaseService, MovieMiniDatabaseService],
 })
 export class AppModule {}
