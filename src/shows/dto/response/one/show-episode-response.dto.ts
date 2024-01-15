@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ShowSourceResponseDto } from './show-source-response.dto';
+import { SourceResponseDto } from 'src/common/dto/response/source-response.dto';
 
 export class ShowEpisodeResponseDto {
   @ApiProperty({
@@ -37,5 +37,5 @@ export class ShowEpisodeResponseDto {
   @ApiProperty({
     description: 'Show sources.',
   })
-  sources: ShowSourceResponseDto[];
+  sources: SourceResponseDto[];
 }

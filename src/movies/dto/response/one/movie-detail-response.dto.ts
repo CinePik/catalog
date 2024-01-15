@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { MovieSourceResponseDto } from './movie-source-response.dto';
+import { SourceResponseDto } from '../../../../common/dto/response/source-response.dto';
 
 export class MovieDetailResponseDto {
   @ApiProperty({
@@ -49,5 +49,5 @@ export class MovieDetailResponseDto {
   @ApiProperty({
     description: 'Movie sources.',
   })
-  sources: MovieSourceResponseDto[];
+  sources: SourceResponseDto[];
 }

@@ -1,13 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
-import { CommonService } from './common.service';
+import { Controller, Get, Query } from '@nestjs/common';
 import {
-  ApiResponse,
-  ApiOperation,
-  ApiTags,
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
+import { CommonService } from './common.service';
 import { HomeResponseDto } from './dto/response/home-response.dto';
+import { SearchResponseDto } from './dto/response/search-response.dto';
 
 @Controller('common')
 @ApiTags('common')
@@ -32,5 +33,25 @@ export class CommonController {
   })
   home(): Promise<HomeResponseDto> {
     return this.commonService.home();
+  }
+
+  @Get('search')
+  @ApiResponse({
+    description: 'Got search results successfully.',
+    type: [SearchResponseDto],
+  })
+  @ApiOperation({
+    summary: 'Search',
+    description:
+      'The Search endpoint empowers users to conduct customized searches, enabling them to discover movies and TV shows based on specific criteria such as genre, actor, director, or keyword, providing a tailored and efficient content discovery experience.',
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'There was an error processing this request.',
+  })
+  @ApiBadRequestResponse({
+    description: 'Bad request.',
+  })
+  search(@Query('query') query: string): Promise<SearchResponseDto> {
+    return this.commonService.search(query);
   }
 }

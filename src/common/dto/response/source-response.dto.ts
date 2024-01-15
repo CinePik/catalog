@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { MoviePlatformResponseDto } from './movie-platform-response.dto';
+import { PlatformResponseDto } from './platform-response.dto';
 
-export class MovieSourceResponseDto {
+export class SourceResponseDto {
   @ApiProperty({
     description: 'Source name.',
   })
@@ -29,5 +29,5 @@ export class MovieSourceResponseDto {
   @ApiProperty({
     description: 'Source platforms.',
   })
-  platform: MoviePlatformResponseDto[];
+  platform: PlatformResponseDto[];
 }
