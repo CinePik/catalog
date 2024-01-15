@@ -59,8 +59,6 @@ To run the app in a docker container, run the following commands.
 ```bash
 docker network create cinepik-network
 
-docker run -d --name cinepik-catalog-db  --env-file .env --network cinepik-network -p 5432:5432 postgres:15.5-alpine
-
 docker build -t cinepik-catalog .
 
 docker run -d -t --env-file .env --network cinepik-network -p 3001:3001 cinepik-catalog
@@ -81,10 +79,8 @@ docker push <dockerhub_username>/cinepik-catalog:latest
 You can also setup the database and application with docker-compose.
 
 ```bash
-# Run the database and application
-docker-compose up --build db app
-# Trigger database seeding
-docker-compose up --build seed
+# Run the application
+docker-compose up --build  app
 
 docker-compose down
 ```
@@ -93,15 +89,8 @@ docker-compose down
 
 ### Setup configs
 
-
-Create a Secret for the database url environment variable in the deployment file.
+Create a Secret for the movies API environment variable in the deployment file.
 Replace the value in the <> with the appropriate value.
-
-```bash
-kubectl create secret generic database-credentials --from-literal=DATABASE_URL=<db_url>
-```
-
-Create Nest secret.
 
 ```bash
 kubectl create secret generic nest-credentials --from-literal=MOVIES_RAPID_API_KEY=<REPLACE_ME>
