@@ -17,7 +17,6 @@ services:
       - cinepik-network
 
 volumes:
-  postgres_data:
   node_modules:
 
 
