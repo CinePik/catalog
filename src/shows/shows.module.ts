@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { SeriesController } from './shows.controller';
+import { ShowsController } from './shows.controller';
 import { ShowsService } from './shows.service';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  controllers: [SeriesController],
+  imports: [HttpModule],
+  controllers: [ShowsController],
   providers: [ShowsService],
 })
 export class ShowsModule {}

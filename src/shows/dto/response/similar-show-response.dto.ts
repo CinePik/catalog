@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class SimilarMovieDetailResponseDto {
+export class SimilarShowDetailResponseDto {
   @ApiProperty({
     description: 'Movie identifier.',
   })

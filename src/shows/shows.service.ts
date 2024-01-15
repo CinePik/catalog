@@ -5,10 +5,12 @@ import { ConfigService } from '@nestjs/config';
 import { Series } from '@prisma/client';
 import { AxiosError } from 'axios';
 import { firstValueFrom, catchError } from 'rxjs';
-import { MovieResponseDto } from './dto/response/all/movie-response.dto';
-import { MovieDetailResponseDto } from './dto/response/one/movie-detail-response.dto';
-import { MovieDetailWrapperResponseDto } from './dto/response/one/movie-detail-wrapper-response.dto';
-import { SimilarMovieDetailResponseDto } from './dto/response/similar-movie-response.dto';
+import { ShowResponseDto } from './dto/response/all/show-response.dto';
+import { ShowDetailResponseDto } from './dto/response/one/show-detail-response.dto';
+import { ShowDetailWrapperResponseDto } from './dto/response/one/show-detail-wrapper-response.dto';
+import { SimilarShowDetailResponseDto } from './dto/response/similar-show-response.dto';
+import { ShowSeasonsResponseDto } from './dto/response/one/show-season-response.dto';
+import { ShowEpisodeResponseDto } from './dto/response/one/show-episode-response.dto';
 
 @Injectable()
 export class ShowsService {
@@ -21,7 +23,7 @@ export class ShowsService {
     this.apiKey = this.configService.get('MOVIES_RAPID_API_KEY');
   }
 
-  async findAll(): Promise<MovieResponseDto[]> {
+  async findAll(): Promise<ShowResponseDto[]> {
     const { data } = await firstValueFrom(
       this.httpService
         .get<any>('https://movies-api14.p.rapidapi.com/shows', {
@@ -35,35 +37,32 @@ export class ShowsService {
             const message = error.response.data;
             const status = error.response.status;
 
-            this.logger.warn(
-              `Get Movies failed with status ${status}`,
-              message,
-            );
+            this.logger.warn(`Get shows failed with status ${status}`, message);
             throw new HttpException(message, status);
           }),
         ),
     );
-    let movies: Array<MovieResponseDto> = [];
-    for (const movie of data.movies) {
-      movies.push({
-        id: movie._id,
-        title: movie.title,
-        backdrop_path: movie.backdrop_path,
-        genres: movie.genres,
-        original_title: movie.original_title,
-        overview: movie.overview,
-        poster_path: movie.poster_path,
-        release_date: movie.release_date,
+    let shows: Array<ShowResponseDto> = [];
+    for (const show of data.movies) {
+      shows.push({
+        id: show._id,
+        title: show.title,
+        backdrop_path: show.backdrop_path,
+        genres: show.genres,
+        original_title: show.original_title,
+        overview: show.overview,
+        poster_path: show.poster_path,
+        first_aired: show.first_aired,
       });
     }
 
-    return movies;
+    return shows;
   }
 
-  async findOne(id: number): Promise<MovieDetailWrapperResponseDto> {
+  async findOne(id: number): Promise<ShowDetailWrapperResponseDto> {
     const { data } = await firstValueFrom(
       this.httpService
-        .get<any>(`https://movies-api14.p.rapidapi.com/movie/${id}`, {
+        .get<any>(`https://movies-api14.p.rapidapi.com/show/${id}`, {
           headers: {
             'X-RapidAPI-Key': this.apiKey,
             'X-RapidAPI-Host': 'movies-api14.p.rapidapi.com',
@@ -74,44 +73,56 @@ export class ShowsService {
             const message = error.response.data;
             const status = error.response.status;
 
-            this.logger.warn(`Get movie failed with status ${status}`, message);
+            this.logger.warn(`Get show failed with status ${status}`, message);
             throw new HttpException(message, status);
           }),
         ),
     );
 
-    let movies: Array<MovieDetailResponseDto> = [];
-    const dataMovie = data.movie;
-    const movie: MovieDetailResponseDto = {
-      id: dataMovie._id,
-      title: dataMovie.title,
-      backdrop_path: dataMovie.backdrop_path,
-      genres: dataMovie.genres,
-      original_title: dataMovie.original_title,
-      overview: dataMovie.overview,
-      poster_path: dataMovie.poster_path,
-      release_date: dataMovie.release_date,
-      vote_average: dataMovie.vote_average,
-      vote_count: dataMovie.vote_count,
-      youtube_trailer: dataMovie.youtube_trailer,
-      sources: dataMovie.sources,
+    const dataShow = data.show;
+    const show: ShowDetailResponseDto = {
+      id: dataShow._id,
+      title: dataShow.title,
+      backdrop_path: dataShow.backdrop_path,
+      genres: dataShow.genres,
+      original_title: dataShow.original_title,
+      overview: dataShow.overview,
+      poster_path: dataShow.poster_path,
+      first_aired: dataShow.first_aired,
+      vote_average: dataShow.vote_average,
+      vote_count: dataShow.vote_count,
+      youtube_trailer: dataShow.youtube_trailer,
+      sources: dataShow.sources,
     };
 
-    let similarMovies: Array<SimilarMovieDetailResponseDto> = [];
+    let seasons: Array<ShowSeasonsResponseDto> = [];
 
-    for (const similarMovie of data.similarMovies) {
-      similarMovies.push({
-        id: similarMovie._id,
-        title: similarMovie.title,
-        backdrop_path: similarMovie.backdrop_path,
-        poster_path: similarMovie.poster_path,
+    for (const season of data.seasons) {
+      const dataEpisodes = season.episodes;
+      let episodes: Array<ShowEpisodeResponseDto> = [];
+      for (const episode of dataEpisodes) {
+        episodes.push({
+          id: episode._id,
+          episode_number: episode.episode_number,
+          first_aired: episode.first_aired,
+          season_number: episode.season_number,
+          show_id: episode.show_id,
+          sources: episode.sources,
+          thumbnail_path: episode.thumbnail_path,
+          title: episode.title,
+          availability: episode.availability,
+        });
+      }
+      seasons.push({
+        season: season.season,
+        episodes: episodes,
       });
     }
 
-    let movieWrapper: MovieDetailWrapperResponseDto =
-      new MovieDetailWrapperResponseDto();
-    movieWrapper.movie = movie;
-    movieWrapper.similarMovies = similarMovies;
-    return movieWrapper;
+    let showWrapper: ShowDetailWrapperResponseDto =
+      new ShowDetailWrapperResponseDto();
+    showWrapper.show = show;
+    showWrapper.seasons = seasons;
+    return showWrapper;
   }
 }

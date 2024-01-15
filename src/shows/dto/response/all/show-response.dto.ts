@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class MovieResponseDto {
+export class ShowResponseDto {
   @ApiProperty({
-    description: 'Movie identifier.',
+    description: 'Show identifier.',
   })
   id: number;
   @ApiProperty({
@@ -18,7 +18,7 @@ export class MovieResponseDto {
   })
   original_title: string;
   @ApiProperty({
-    description: 'Short movie description.',
+    description: 'Short show description.',
   })
   overview: string;
   @ApiProperty({
@@ -26,11 +26,11 @@ export class MovieResponseDto {
   })
   poster_path: string;
   @ApiProperty({
-    description: 'Movie release date.',
+    description: 'Show first aired date.',
   })
-  release_date?: Date;
+  first_aired?: Date;
   @ApiProperty({
-    description: 'Movie title.',
+    description: 'Show title.',
   })
   title: string;
 }

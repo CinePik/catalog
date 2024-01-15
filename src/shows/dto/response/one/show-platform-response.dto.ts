@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class MoviePlatformResponseDto {
+export class ShowPlatformResponseDto {
   @ApiProperty({
     description: 'Android url.',
   })

@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Param,
-  Body,
-  ParseIntPipe,
-} from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ShowsService } from './shows.service';
 import {
   ApiTags,
@@ -19,6 +10,8 @@ import {
   ApiBearerAuth,
   ApiCreatedResponse,
 } from '@nestjs/swagger';
+import { ShowResponseDto } from './dto/response/all/show-response.dto';
+import { ShowDetailWrapperResponseDto } from './dto/response/one/show-detail-wrapper-response.dto';
 
 @Controller('shows')
 @ApiTags('shows')
@@ -31,7 +24,7 @@ import {
 @ApiBadRequestResponse({
   description: 'Bad request.',
 })
-export class SeriesController {
+export class ShowsController {
   constructor(private readonly seriesService: ShowsService) {}
 
   @Get()
@@ -43,20 +36,20 @@ export class SeriesController {
     summary: 'Returns all shows',
     description: 'Returns all shows in the database.',
   })
-  findAll(): Promise<any[]> {
+  findAll(): Promise<ShowResponseDto[]> {
     return this.seriesService.findAll();
   }
 
   @Get(':id')
   @ApiOkResponse({
     description: 'Shows found successfully.',
-    type: [ShowResponseDto],
+    type: [ShowDetailWrapperResponseDto],
   })
   @ApiOperation({
     summary: 'Returns a show',
     description: 'Returns specific show with an id.',
   })
-  findOne(@Param('id') id: string): Promise<any> {
+  findOne(@Param('id') id: string): Promise<ShowDetailWrapperResponseDto> {
     return this.seriesService.findOne(+id);
   }
 }

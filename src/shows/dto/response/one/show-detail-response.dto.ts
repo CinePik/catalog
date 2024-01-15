@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { MovieSourceResponseDto } from './movie-source-response.dto';
+import { ShowSourceResponseDto } from './show-source-response.dto';
 
-export class MovieDetailResponseDto {
+export class ShowDetailResponseDto {
   @ApiProperty({
-    description: 'Movie identifier.',
+    description: 'Show identifier.',
   })
   id: number;
   @ApiProperty({
@@ -27,27 +27,27 @@ export class MovieDetailResponseDto {
   })
   poster_path: string;
   @ApiProperty({
-    description: 'Movie release date.',
+    description: 'Show first aired date.',
   })
-  release_date?: Date;
+  first_aired?: Date;
   @ApiProperty({
-    description: 'Movie title.',
+    description: 'Show title.',
   })
   title: string;
   @ApiProperty({
-    description: 'Movie vote average.',
+    description: 'Show vote average.',
   })
   vote_average: number;
   @ApiProperty({
-    description: 'Movie vote count.',
+    description: 'Show vote count.',
   })
   vote_count: number;
   @ApiProperty({
-    description: 'Movie Youtube trailer.',
+    description: 'Show Youtube trailer.',
   })
   youtube_trailer: string;
   @ApiProperty({
-    description: 'Movie sources.',
+    description: 'Show sources.',
   })
-  sources: MovieSourceResponseDto[];
+  sources: ShowSourceResponseDto[];
 }
