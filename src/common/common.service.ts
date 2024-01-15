@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AxiosError } from 'axios';
 import { firstValueFrom, catchError } from 'rxjs';
@@ -29,8 +29,14 @@ export class CommonService {
         })
         .pipe(
           catchError((error: AxiosError) => {
-            this.logger.error(error.response.data);
-            throw 'An error happened!';
+            const message = error.response.data;
+            const status = error.response.status;
+
+            this.logger.warn(
+              `Get Home layout failed with status ${status}`,
+              message,
+            );
+            throw new HttpException(message, status);
           }),
         ),
     );

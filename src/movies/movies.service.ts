@@ -37,8 +37,14 @@ export class MoviesService {
         })
         .pipe(
           catchError((error: AxiosError) => {
-            this.logger.error(error.response.data);
-            throw 'An error happened!';
+            const message = error.response.data;
+            const status = error.response.status;
+
+            this.logger.warn(
+              `Get Movies failed with status ${status}`,
+              message,
+            );
+            throw new HttpException(message, status);
           }),
         ),
     );
@@ -70,8 +76,11 @@ export class MoviesService {
         })
         .pipe(
           catchError((error: AxiosError) => {
-            this.logger.error(error.response.data);
-            throw 'An error happened!';
+            const message = error.response.data;
+            const status = error.response.status;
+
+            this.logger.warn(`Get movie failed with status ${status}`, message);
+            throw new HttpException(message, status);
           }),
         ),
     );
