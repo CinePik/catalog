@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class MovieResponseDto {
   @ApiProperty({
-    description: 'Content identifier.',
+    description: 'Movie identifier.',
   })
   id: number;
   @ApiProperty({
@@ -18,7 +18,7 @@ export class MovieResponseDto {
   })
   original_title: string;
   @ApiProperty({
-    description: 'Short content description.',
+    description: 'Short movie description.',
   })
   overview: string;
   @ApiProperty({
@@ -26,15 +26,11 @@ export class MovieResponseDto {
   })
   poster_path: string;
   @ApiProperty({
-    description: 'Content release date.',
+    description: 'Movie release date.',
   })
   release_date?: Date;
   @ApiProperty({
-    description: 'Content title.',
+    description: 'Movie title.',
   })
   title: string;
-  @ApiProperty({
-    description: 'Content type (movie or show).',
-  })
-  contentType: string;
 }

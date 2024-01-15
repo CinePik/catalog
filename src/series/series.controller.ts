@@ -23,7 +23,7 @@ import {
   ApiCreatedResponse,
 } from '@nestjs/swagger';
 import { Series } from '@prisma/client';
-import { MovieResponseDto } from 'src/movies/dto/response/movie-response.dto';
+import { MovieResponseDto } from 'src/movies/dto/response/all/movie-response.dto';
 import { SeriesResponseDto } from './dto/response/series-response.dto';
 
 @Controller('series')

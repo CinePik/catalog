@@ -23,7 +23,8 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import { Movie, Prisma } from '@prisma/client';
-import { MovieResponseDto } from './dto/response/movie-response.dto';
+import { MovieResponseDto } from './dto/response/all/movie-response.dto';
+import { MovieDetailWrapperResponseDto } from './dto/response/one/movie-detail-wrapper-response.dto';
 
 @Controller('movies')
 @ApiTags('movies')
@@ -56,14 +57,14 @@ export class MoviesController {
   @Get(':id')
   @ApiOkResponse({
     description: 'Movie found successfully.',
-    type: MovieResponseDto,
+    type: MovieDetailWrapperResponseDto,
   })
   @Unprotected()
   @ApiOperation({
     summary: 'Returns a movie',
     description: 'Returns a specific movie with an id.',
   })
-  findOne(@Param('id') id: string): Promise<Movie> {
+  findOne(@Param('id') id: string): Promise<MovieDetailWrapperResponseDto> {
     return this.moviesService.findOne(+id);
   }
 }

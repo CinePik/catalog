@@ -40,7 +40,7 @@ export class CommonService {
 
       for (const content of section.movies) {
         sectionContent.push({
-          id: content.id,
+          id: content._id,
           title: content.title,
           backdrop_path: content.backdrop_path,
           genres: content.genres,
