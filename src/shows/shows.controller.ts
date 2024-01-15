@@ -1,17 +1,14 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ShowsService } from './shows.service';
 import {
-  ApiTags,
-  ApiInternalServerErrorResponse,
-  ApiUnauthorizedResponse,
   ApiBadRequestResponse,
+  ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiOperation,
-  ApiBearerAuth,
-  ApiCreatedResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { ShowResponseDto } from './dto/response/all/show-response.dto';
 import { ShowDetailWrapperResponseDto } from './dto/response/one/show-detail-wrapper-response.dto';
+import { ShowsService } from './shows.service';
 
 @Controller('shows')
 @ApiTags('shows')
