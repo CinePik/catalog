@@ -25,11 +25,6 @@ spec:
           env:
             - name: NODE_PORT
               value: '3001'
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: database-credentials
-                  key: DATABASE_URL
             - name: MOVIES_RAPID_API_KEY
               valueFrom:
                 secretKeyRef:
