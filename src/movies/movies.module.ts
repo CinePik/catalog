@@ -8,6 +8,6 @@ import { HttpModule } from '@nestjs/axios';
 @Module({
   imports: [HttpModule, KeycloakModule],
   controllers: [MoviesController],
-  providers: [MoviesService, PrismaService],
+  providers: [MoviesService],
 })
 export class MoviesModule {}

@@ -1,54 +1,40 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Movie } from '@prisma/client';
 
-export class MovieResponseDto implements Movie {
+export class MovieResponseDto {
   @ApiProperty({
-    description: 'Movie identifier.',
+    description: 'Content identifier.',
   })
   id: number;
-
   @ApiProperty({
-    description: 'Movie title.',
+    description: 'Url for the backdrop image.',
   })
-  title: string;
-
+  backdrop_path: string;
   @ApiProperty({
-    description: 'Movie description. ',
-  })
-  description: string;
-
-  @ApiProperty({
-    description: 'Movie release date.',
-  })
-  releaseDate: Date;
-
-  @ApiProperty({
-    description: 'Movie director',
-  })
-  director: string;
-
-  @ApiProperty({
-    description: 'Movie genres.',
+    description: 'List of genres that best describe the content.',
   })
   genres: string[];
-
   @ApiProperty({
-    description: 'Movie rating.',
+    description: 'Title in the original language.',
   })
-  rating: number;
-
+  original_title: string;
   @ApiProperty({
-    description: 'Movie runtime in minutes.',
+    description: 'Short content description.',
   })
-  runtimeMinutes: number;
-
+  overview: string;
   @ApiProperty({
-    description: 'Movie creation date.',
+    description: 'Url for the poster image.',
   })
-  createdAt: Date;
-
+  poster_path: string;
   @ApiProperty({
-    description: 'Movie update date.',
+    description: 'Content release date.',
   })
-  updatedAt: Date;
+  release_date?: Date;
+  @ApiProperty({
+    description: 'Content title.',
+  })
+  title: string;
+  @ApiProperty({
+    description: 'Content type (movie or show).',
+  })
+  contentType: string;
 }
