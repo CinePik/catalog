@@ -8,7 +8,8 @@
         "configmap",
         "dockerhub",
         "keycloak",
-        "nestjs"
+        "nestjs",
+        "rapidapi"
     ],
     "ignoreWords": [],
     "import": []

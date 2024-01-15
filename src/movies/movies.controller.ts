@@ -9,8 +9,6 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
-import { CreateMovieDto } from './dto/request/create-movie.dto';
-import { UpdateMovieDto } from './dto/request/update-movie.dto';
 import { Unprotected, Roles } from 'nest-keycloak-connect';
 import {
   ApiTags,
@@ -22,7 +20,6 @@ import {
   ApiOkResponse,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { Movie, Prisma } from '@prisma/client';
 import { MovieResponseDto } from './dto/response/all/movie-response.dto';
 import { MovieDetailWrapperResponseDto } from './dto/response/one/movie-detail-wrapper-response.dto';
 

@@ -1,8 +1,4 @@
 import { HttpException, Injectable, Logger } from '@nestjs/common';
-import { CreateMovieDto } from './dto/request/create-movie.dto';
-import { UpdateMovieDto } from './dto/request/update-movie.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { Movie } from '@prisma/client';
 import { AxiosError } from '@nestjs/terminus/dist/errors/axios.error';
 import { MovieResponseDto } from './dto/response/all/movie-response.dto';
 import { ConfigService } from '@nestjs/config';

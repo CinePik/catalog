@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Movie, Series } from '@prisma/client';
 
-export class SeriesResponseDto implements Series {
+export class ShowResponseDto {
   @ApiProperty({
     description: 'Series identifier.',
   })
