@@ -16,7 +16,7 @@ spec:
         prometheus.io/port: '3001'
     spec:
       containers:
-        - image: sebam/cinepik-catalog:dev
+        - image: sebam/cinepik-catalog:latest
           name: cinepik-catalog
           resources:
             requests:
