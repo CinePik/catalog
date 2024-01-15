@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { MoviesController } from './movies.controller';
 import { MoviesService } from './movies.service';
-import { KeycloakModule } from 'src/keycloak/keycloak.module';
 import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  imports: [HttpModule, KeycloakModule],
+  imports: [HttpModule],
   controllers: [MoviesController],
   providers: [MoviesService],
 })

@@ -9,7 +9,6 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { ShowsService } from './shows.service';
-import { Unprotected, Roles } from 'nest-keycloak-connect';
 import {
   ApiTags,
   ApiInternalServerErrorResponse,
@@ -20,8 +19,6 @@ import {
   ApiBearerAuth,
   ApiCreatedResponse,
 } from '@nestjs/swagger';
-import { MovieResponseDto } from 'src/movies/dto/response/all/movie-response.dto';
-import { ShowResponseDto } from './dto/response/show-response.dto';
 
 @Controller('shows')
 @ApiTags('shows')
@@ -38,7 +35,6 @@ export class SeriesController {
   constructor(private readonly seriesService: ShowsService) {}
 
   @Get()
-  @Unprotected()
   @ApiOkResponse({
     description: 'Series found successfully.',
     type: [ShowResponseDto],
@@ -52,14 +48,13 @@ export class SeriesController {
   }
 
   @Get(':id')
-  @Unprotected()
   @ApiOkResponse({
-    description: 'Series found successfully.',
+    description: 'Shows found successfully.',
     type: [ShowResponseDto],
   })
   @ApiOperation({
-    summary: 'Returns a shows',
-    description: 'Returns specific shows with an id.',
+    summary: 'Returns a show',
+    description: 'Returns specific show with an id.',
   })
   findOne(@Param('id') id: string): Promise<any> {
     return this.seriesService.findOne(+id);

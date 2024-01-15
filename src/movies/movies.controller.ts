@@ -9,7 +9,6 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
-import { Unprotected, Roles } from 'nest-keycloak-connect';
 import {
   ApiTags,
   ApiInternalServerErrorResponse,
@@ -42,7 +41,6 @@ export class MoviesController {
     description: 'Movies fetched successfully.',
     type: [MovieResponseDto],
   })
-  @Unprotected()
   @ApiOperation({
     summary: 'Returns all movies',
     description: 'Returns all movies in the database.',
@@ -56,7 +54,6 @@ export class MoviesController {
     description: 'Movie found successfully.',
     type: MovieDetailWrapperResponseDto,
   })
-  @Unprotected()
   @ApiOperation({
     summary: 'Returns a movie',
     description: 'Returns a specific movie with an id.',

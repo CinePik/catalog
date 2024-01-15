@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MoviesModule } from './movies/movies.module';
 import { ShowsModule } from './shows/shows.module';
-import { KeycloakModule } from './keycloak/keycloak.module';
 import { HealthModule } from './health/health.module';
 import { CommonModule } from './common/common.module';
 
@@ -14,7 +13,6 @@ import { CommonModule } from './common/common.module';
       ignoreEnvFile: false,
       isGlobal: true,
     }),
-    KeycloakModule,
     MoviesModule,
     ShowsModule,
     HealthModule,

@@ -8,7 +8,6 @@ import {
 } from '@nestjs/terminus';
 import { ManualHealthIndicator } from './manual.health';
 import { ApiTags } from '@nestjs/swagger';
-import { Unprotected } from 'nest-keycloak-connect';
 
 @Controller('health')
 @ApiTags('health')
@@ -22,7 +21,6 @@ export class HealthController {
   ) {}
 
   @Get('live')
-  @Unprotected()
   @HealthCheck()
   checkLiveness() {
     return this.health.check([
@@ -31,7 +29,6 @@ export class HealthController {
   }
 
   @Get('ready')
-  @Unprotected()
   @HealthCheck()
   checkReadiness() {
     // TODO: Add HTTP health check to ping external API
@@ -45,7 +42,6 @@ export class HealthController {
   }
 
   @Post('toggle')
-  @Unprotected()
   @HttpCode(HttpStatus.NO_CONTENT)
   toggleHealth() {
     this.manualHealthIndicator.toggleHealth();
