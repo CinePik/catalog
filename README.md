@@ -15,6 +15,11 @@
 
 Node.js microservice for providing the tv catalog.
 
+## Documentation
+
+OpenAPI documentation available at [http://localhost:3000/api](http://localhost:3001/api).  
+For accessing secured endpoints add your `access_token` provided to you at login to the `Authorization` header.
+
 ## Installation
 
 ```bash
@@ -32,27 +37,6 @@ npm run start:dev
 
 # production mode
 npm run start:prod
-```
-
-## Prisma
-
-If any changes are made to the schema.prisma file, run the following command to update the database.
-I creates a migration, updates the database (also seeds?), and updates the Prisma client.
-
-```bash
-npm run prisma:migrate:dev
-```
-
-If you only want to seed the database, run the following command.
-
-```bash
-npm run prisma:seed
-```
-
-To update the Prisma client run the following command.
-
-```bash
-npm run prisma:client
 ```
 
 ## Test
@@ -109,23 +93,18 @@ docker-compose down
 
 ### Setup configs
 
-Create config map for keycloak
-
-```bash
-kubectl create configmap keycloak-config --from-literal=KEYCLOAK_BASE_URL="http://cinepik-keycloak" --from-literal=KEYCLOAK_CLIENT_ID="nest-auth" --from-literal=KEYCLOAK_PORT=8080 --from-literal=KEYCLOAK_REALM="cinepik"
-```
-
-Create secret for keycloak
-
-```bash
-kubectl create secret generic keycloak-config --from-literal=KEYCLOAK_ADMIN="admin" --from-literal=KEYCLOAK_ADMIN_PASSWORD="<REPLACE_ME>" --from-literal=KEYCLOAK_CLIENT_SECRET="<REPLACE_ME>" --from-literal=KEYCLOAK_REALM_RSA_PUBLIC_KEY="<REPLACE_ME>"
-```
 
 Create a Secret for the database url environment variable in the deployment file.
 Replace the value in the <> with the appropriate value.
 
 ```bash
 kubectl create secret generic database-credentials --from-literal=DATABASE_URL=<db_url>
+```
+
+Create Nest secret.
+
+```bash
+kubectl create secret generic nest-credentials --from-literal=MOVIES_RAPID_API_KEY=<REPLACE_ME>
 ```
 
 ### Apply changes
