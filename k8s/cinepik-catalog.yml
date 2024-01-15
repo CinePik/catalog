@@ -11,9 +11,12 @@ spec:
     metadata:
       labels:
         app: cinepik-catalog
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '3001'
     spec:
       containers:
-        - image: sebam/cinepik-catalog:latest
+        - image: sebam/cinepik-catalog:dev
           name: cinepik-catalog
           resources:
             requests:
