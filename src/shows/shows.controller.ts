@@ -18,9 +18,6 @@ import { ShowDetailWrapperResponseDto } from './dto/response/one/show-detail-wra
 @ApiInternalServerErrorResponse({
   description: 'There was an error processing this request.',
 })
-@ApiUnauthorizedResponse({
-  description: 'User not authorized correctly.',
-})
 @ApiBadRequestResponse({
   description: 'Bad request.',
 })

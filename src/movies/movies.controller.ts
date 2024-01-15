@@ -27,9 +27,6 @@ import { MovieDetailWrapperResponseDto } from './dto/response/one/movie-detail-w
 @ApiInternalServerErrorResponse({
   description: 'There was an error processing this request.',
 })
-@ApiUnauthorizedResponse({
-  description: 'User not authorized correctly.',
-})
 @ApiBadRequestResponse({
   description: 'Bad request.',
 })
