@@ -1,19 +1,26 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { AxiosError } from 'axios';
 import { firstValueFrom, catchError } from 'rxjs';
 
 @Injectable()
 export class CommonService {
   private readonly logger = new Logger(CommonService.name);
-  constructor(private readonly httpService: HttpService) {}
+  private apiKey;
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly httpService: HttpService,
+  ) {
+    this.apiKey = this.configService.get('MOVIES_RAPID_API_KEY');
+  }
 
   async home(): Promise<any> {
     const { data } = await firstValueFrom(
       this.httpService
         .get<any>('https://movies-api14.p.rapidapi.com/home', {
           headers: {
-            'X-RapidAPI-Key': `b31e2640damsh04e940c2bdd1ca3p187d1cjsnb955d15c10b5`,
+            'X-RapidAPI-Key': this.apiKey,
             'X-RapidAPI-Host': 'movies-api14.p.rapidapi.com',
           },
         })
