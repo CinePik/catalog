@@ -9,6 +9,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Unprotected } from 'nest-keycloak-connect';
+import { HomeResponseDto } from './dto/response/home-response.dto';
 
 @Controller('common')
 @ApiTags('common')
@@ -18,8 +19,8 @@ export class CommonController {
   @Get('home')
   @Unprotected()
   @ApiResponse({
-    status: 200,
     description: 'Got home page layout successfully.',
+    type: [HomeResponseDto],
   })
   @ApiOperation({
     summary: 'Home',
@@ -32,7 +33,7 @@ export class CommonController {
   @ApiBadRequestResponse({
     description: 'Bad request.',
   })
-  home(): any {
+  home(): Promise<HomeResponseDto> {
     return this.commonService.home();
   }
 }
