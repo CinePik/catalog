@@ -1,13 +1,12 @@
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
+import { MetricsModule } from 'src/metrics/metrics.module';
 import { MoviesController } from './movies.controller';
 import { MoviesService } from './movies.service';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { KeycloakModule } from 'src/keycloak/keycloak.module';
-import { MetricsModule } from 'src/metrics/metrics.module';
 
 @Module({
-  imports: [KeycloakModule, MetricsModule],
+  imports: [HttpModule, MetricsModule],
   controllers: [MoviesController],
-  providers: [MoviesService, PrismaService],
+  providers: [MoviesService],
 })
 export class MoviesModule {}
