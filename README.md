@@ -90,7 +90,7 @@ docker-compose down
 ### Setup configs
 
 Create a Secret for the movies API environment variable in the deployment file.
-Replace the value in the <> with the appropriate value.
+Replace the value in the <> with the appropriate value. More info [here](https://rapidapi.com/elisbushaj2/api/movies-api14).
 
 ```bash
 kubectl create secret generic nest-credentials --from-literal=MOVIES_RAPID_API_KEY=<REPLACE_ME>

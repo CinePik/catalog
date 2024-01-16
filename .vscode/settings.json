@@ -10,6 +10,6 @@
     "eslint.codeActionsOnSave.mode": "all",
     "eslint.enable": true,
     "editor.codeActionsOnSave": {
-        "source.organizeImports": true,
-      },
+        "source.organizeImports": "explicit"
+    },
 }
