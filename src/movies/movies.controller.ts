@@ -1,26 +1,15 @@
+import { Controller, Get, Param } from '@nestjs/common';
 import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Param,
-  Body,
-  ParseIntPipe,
-} from '@nestjs/common';
-import { MoviesService } from './movies.service';
-import {
-  ApiTags,
-  ApiInternalServerErrorResponse,
-  ApiUnauthorizedResponse,
   ApiBadRequestResponse,
-  ApiCreatedResponse,
-  ApiOperation,
+  ApiInternalServerErrorResponse,
   ApiOkResponse,
-  ApiBearerAuth,
+  ApiOperation,
+  ApiTags,
 } from '@nestjs/swagger';
+import { MetricsService } from 'src/metrics/metrics.service';
 import { MovieResponseDto } from './dto/response/all/movie-response.dto';
 import { MovieDetailWrapperResponseDto } from './dto/response/one/movie-detail-wrapper-response.dto';
+import { MoviesService } from './movies.service';
 
 @Controller('movies')
 @ApiTags('movies')
@@ -31,7 +20,10 @@ import { MovieDetailWrapperResponseDto } from './dto/response/one/movie-detail-w
   description: 'Bad request.',
 })
 export class MoviesController {
-  constructor(private readonly moviesService: MoviesService) {}
+  constructor(
+    private readonly moviesService: MoviesService,
+    private metricsService: MetricsService,
+  ) {}
 
   @Get()
   @ApiOkResponse({
@@ -43,7 +35,9 @@ export class MoviesController {
     description: 'Returns all movies in the database.',
   })
   findAll(): Promise<MovieResponseDto[]> {
-    return this.moviesService.findAll();
+    return this.metricsService.handleRequest(() =>
+      this.moviesService.findAll(),
+    );
   }
 
   @Get(':id')
@@ -56,6 +50,8 @@ export class MoviesController {
     description: 'Returns a specific movie with an id.',
   })
   findOne(@Param('id') id: string): Promise<MovieDetailWrapperResponseDto> {
-    return this.moviesService.findOne(+id);
+    return this.metricsService.handleRequest(() =>
+      this.moviesService.findOne(+id),
+    );
   }
 }

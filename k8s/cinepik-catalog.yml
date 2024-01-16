@@ -11,6 +11,9 @@ spec:
     metadata:
       labels:
         app: cinepik-catalog
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '3001'
     spec:
       containers:
         - image: sebam/cinepik-catalog:latest

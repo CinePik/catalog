@@ -6,6 +6,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { MetricsService } from 'src/metrics/metrics.service';
 import { CommonService } from './common.service';
 import { HomeResponseDto } from './dto/response/home-response.dto';
 import { SearchResponseDto } from './dto/response/search-response.dto';
@@ -13,7 +14,10 @@ import { SearchResponseDto } from './dto/response/search-response.dto';
 @Controller('common')
 @ApiTags('common')
 export class CommonController {
-  constructor(private readonly commonService: CommonService) {}
+  constructor(
+    private readonly commonService: CommonService,
+    private metricsService: MetricsService,
+  ) {}
 
   @Get('home')
   @ApiResponse({
@@ -32,7 +36,7 @@ export class CommonController {
     description: 'Bad request.',
   })
   home(): Promise<HomeResponseDto> {
-    return this.commonService.home();
+    return this.metricsService.handleRequest(() => this.commonService.home());
   }
 
   @Get('search')
@@ -52,6 +56,8 @@ export class CommonController {
     description: 'Bad request.',
   })
   search(@Query('query') query: string): Promise<SearchResponseDto> {
-    return this.commonService.search(query);
+    return this.metricsService.handleRequest(() =>
+      this.commonService.search(query),
+    );
   }
 }
