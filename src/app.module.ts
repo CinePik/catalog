@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
+import { CommonModule } from './common/common.module';
+import { HealthModule } from './health/health.module';
+import { MetricsModule } from './metrics/metrics.module';
 import { MoviesModule } from './movies/movies.module';
 import { ShowsModule } from './shows/shows.module';
-import { HealthModule } from './health/health.module';
-import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { CommonModule } from './common/common.module';
     MoviesModule,
     ShowsModule,
     HealthModule,
+    MetricsModule,
     CommonModule,
   ],
   controllers: [AppController],

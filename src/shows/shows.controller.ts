@@ -6,6 +6,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+import { MetricsService } from 'src/metrics/metrics.service';
 import { ShowResponseDto } from './dto/response/all/show-response.dto';
 import { ShowDetailWrapperResponseDto } from './dto/response/one/show-detail-wrapper-response.dto';
 import { ShowsService } from './shows.service';
@@ -19,7 +20,10 @@ import { ShowsService } from './shows.service';
   description: 'Bad request.',
 })
 export class ShowsController {
-  constructor(private readonly showsService: ShowsService) {}
+  constructor(
+    private readonly showsService: ShowsService,
+    private metricsService: MetricsService,
+  ) {}
 
   @Get()
   @ApiOkResponse({
@@ -31,7 +35,7 @@ export class ShowsController {
     description: 'Returns all shows in the database.',
   })
   findAll(): Promise<ShowResponseDto[]> {
-    return this.showsService.findAll();
+    return this.metricsService.handleRequest(() => this.showsService.findAll());
   }
 
   @Get(':id')
@@ -44,6 +48,8 @@ export class ShowsController {
     description: 'Returns specific show with an id.',
   })
   findOne(@Param('id') id: string): Promise<ShowDetailWrapperResponseDto> {
-    return this.showsService.findOne(+id);
+    return this.metricsService.handleRequest(() =>
+      this.showsService.findOne(+id),
+    );
   }
 }

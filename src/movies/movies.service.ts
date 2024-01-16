@@ -1,15 +1,12 @@
-import { HttpException, Injectable, Logger } from '@nestjs/common';
-import { AxiosError } from '@nestjs/terminus/dist/errors/axios.error';
-import { MovieResponseDto } from './dto/response/all/movie-response.dto';
-import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
-import { firstValueFrom, catchError, async } from 'rxjs';
-import { HomeContentResponseDto } from 'src/common/dto/response/home-content-response.dto';
-import { HomeResponseDto } from 'src/common/dto/response/home-response.dto';
-import { HomeSectionResponseDto } from 'src/common/dto/response/home-section-response.dto';
-import { SimilarMovieDetailResponseDto } from './dto/response/similar-movie-response.dto';
+import { HttpException, Injectable, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { AxiosError } from '@nestjs/terminus/dist/errors/axios.error';
+import { catchError, firstValueFrom } from 'rxjs';
+import { MovieResponseDto } from './dto/response/all/movie-response.dto';
 import { MovieDetailResponseDto } from './dto/response/one/movie-detail-response.dto';
 import { MovieDetailWrapperResponseDto } from './dto/response/one/movie-detail-wrapper-response.dto';
+import { SimilarMovieDetailResponseDto } from './dto/response/similar-movie-response.dto';
 
 @Injectable()
 export class MoviesService {

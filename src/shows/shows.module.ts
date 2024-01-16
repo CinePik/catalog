@@ -1,10 +1,11 @@
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
+import { MetricsModule } from 'src/metrics/metrics.module';
 import { ShowsController } from './shows.controller';
 import { ShowsService } from './shows.service';
-import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, MetricsModule],
   controllers: [ShowsController],
   providers: [ShowsService],
 })
