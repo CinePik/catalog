@@ -1,8 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { MetricsService } from './metrics.service';
 
 @Controller('metrics')
+@ApiTags('metrics')
 export class MetricsController {
   constructor(private metricsService: MetricsService) {}
 

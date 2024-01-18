@@ -10,6 +10,15 @@ services:
       - .env
     networks:
       - cinepik-network
+    logging:
+      driver: gelf
+      options:
+        gelf-address: udp://127.0.0.1:${LS_PORT}
+        tag: cinepik-catalog
+
+volumes:
+  postgres_data:
+
 
 networks:
   cinepik-network:
