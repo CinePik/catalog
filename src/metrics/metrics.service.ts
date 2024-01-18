@@ -25,7 +25,7 @@ export class MetricsService {
 
     // Leave metric names generic so they can be easily collected across services and then filtered by app name
     this.registry.setDefaultLabels({
-      app: 'cinepik_catalog_app',
+      app: 'cinepik_catalog',
     });
 
     collectDefaultMetrics({

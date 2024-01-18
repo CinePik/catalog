@@ -1,4 +1,5 @@
 import { Controller, Get, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import {
   DiskHealthIndicator,
   HealthCheck,
@@ -7,7 +8,6 @@ import {
   MemoryHealthIndicator,
 } from '@nestjs/terminus';
 import { ManualHealthIndicator } from './manual.health';
-import { ApiTags } from '@nestjs/swagger';
 
 @Controller('health')
 @ApiTags('health')
@@ -31,9 +31,9 @@ export class HealthController {
   @Get('ready')
   @HealthCheck()
   checkReadiness() {
-    // TODO: Add HTTP health check to ping external API
     return this.health.check([
       () => this.http.pingCheck('google', 'https://google.com'),
+      () => this.http.pingCheck('rapidapi', 'https://rapidapi.com', {}),
       () =>
         this.disk.checkStorage('storage', { path: '/', thresholdPercent: 0.9 }), // if more than 90% of disk space is used
       () => this.memory.checkHeap('memory_heap', 256 * 1024 * 1024), // if more than 256MiB
