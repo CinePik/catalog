@@ -11,6 +11,9 @@ spec:
     metadata:
       labels:
         app: cinepik-catalog
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '3001'
     spec:
       containers:
         - image: sebam/cinepik-catalog:latest
@@ -25,31 +28,11 @@ spec:
           env:
             - name: NODE_PORT
               value: '3001'
-            - name: KEYCLOAK_CLIENT_SECRET
+            - name: MOVIES_RAPID_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: keycloak-credentials
-                  key: KEYCLOAK_CLIENT_SECRET
-            - name: KEYCLOAK_BASE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: keycloak-config
-                  key: KEYCLOAK_BASE_URL
-            - name: KEYCLOAK_REALM
-              valueFrom:
-                configMapKeyRef:
-                  name: keycloak-config
-                  key: KEYCLOAK_REALM
-            - name: KEYCLOAK_CLIENT_ID
-              valueFrom:
-                configMapKeyRef:
-                  name: keycloak-config
-                  key: KEYCLOAK_CLIENT_ID
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: database-credentials
-                  key: DATABASE_URL
+                  name: catalog-credentials
+                  key: MOVIES_RAPID_API_KEY
           ports:
             - containerPort: 3001
               name: server

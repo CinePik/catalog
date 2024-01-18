@@ -5,9 +5,7 @@ services:
     container_name: cinepik-catalog
     build: .
     ports:
-      - ${PORT:-3001}:${PORT:-3001}
-    depends_on:
-      - db
+      - ${NODE_PORT}:${NODE_PORT}
     env_file:
       - .env
     networks:
@@ -17,23 +15,6 @@ services:
       options:
         gelf-address: udp://127.0.0.1:${LS_PORT}
         tag: cinepik-catalog
-
-  db:
-    container_name: cinepik-catalog-db
-    image: postgres:15.5-alpine
-    ports:
-      - '${DB_PORT}:${DB_PORT}'
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    env_file:
-      - .env
-    networks:
-      - cinepik-network
-    logging:
-      driver: gelf
-      options:
-        gelf-address: udp://127.0.0.1:${LS_PORT}
-        tag: cinepik-catalog-db
 
 volumes:
   postgres_data:

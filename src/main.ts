@@ -1,10 +1,10 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: { origin: '*' } });
   const port = process.env.NODE_PORT;
   const version = process.env.npm_package_version;
 
@@ -13,7 +13,7 @@ async function bootstrap() {
     .setTitle('CinePik Catalog API')
     .setDescription('The CinePik Catalog microservice.')
     .setVersion(version)
-    .addBearerAuth()
+    // .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

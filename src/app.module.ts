@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
-import { MoviesModule } from './movies/movies.module';
-import { SeriesModule } from './series/series.module';
-import { KeycloakModule } from './keycloak/keycloak.module';
+import { CommonModule } from './common/common.module';
 import { HealthModule } from './health/health.module';
+import { MetricsModule } from './metrics/metrics.module';
+import { MoviesModule } from './movies/movies.module';
+import { ShowsModule } from './shows/shows.module';
 
 @Module({
   imports: [
@@ -13,10 +14,11 @@ import { HealthModule } from './health/health.module';
       ignoreEnvFile: false,
       isGlobal: true,
     }),
-    KeycloakModule,
     MoviesModule,
-    SeriesModule,
+    ShowsModule,
     HealthModule,
+    MetricsModule,
+    CommonModule,
   ],
   controllers: [AppController],
   providers: [AppService],
