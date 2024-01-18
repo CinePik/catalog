@@ -8,9 +8,6 @@ services:
       - ${PORT:-3001}:${PORT:-3001}
     depends_on:
       - db
-    volumes:
-      - .:/app
-      - node_modules:/app/node_modules
     env_file:
       - .env
     networks:
@@ -18,27 +15,8 @@ services:
     logging:
       driver: gelf
       options:
-        gelf-address: udp://host.docker.internal:12201
-        tag: cinepik-catalog-app
-
-  seed:
-    container_name: cinepik-catalog-seed
-    build: .
-    command: npm run prisma:seed
-    depends_on:
-      - db
-    volumes:
-      - .:/app
-      - node_modules:/app/node_modules
-    env_file:
-      - .env
-    networks:
-      - cinepik-network
-    logging:
-      driver: gelf
-      options:
-        gelf-address: udp://host.docker.internal:12201
-        tag: cinepik-catalog-seed
+        gelf-address: udp://127.0.0.1:${LS_PORT}
+        tag: cinepik-catalog
 
   db:
     container_name: cinepik-catalog-db
@@ -54,12 +32,12 @@ services:
     logging:
       driver: gelf
       options:
-        gelf-address: udp://host.docker.internal:12201
+        gelf-address: udp://127.0.0.1:${LS_PORT}
         tag: cinepik-catalog-db
 
 volumes:
   postgres_data:
-  node_modules:
+
 
 networks:
   cinepik-network:
