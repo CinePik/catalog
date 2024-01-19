@@ -14,7 +14,7 @@ async function bootstrap() {
     .setDescription('The CinePik Catalog microservice.')
     .setVersion(version)
     .addServer(`http://localhost:${port}`)
-    .addServer('http://cinepik.fun/watchlist')
+    .addServer('http://cinepik.fun/catalog')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('openapi', app, document);
