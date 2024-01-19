@@ -13,7 +13,8 @@ async function bootstrap() {
     .setTitle('CinePik Catalog API')
     .setDescription('The CinePik Catalog microservice.')
     .setVersion(version)
-    // .addBearerAuth()
+    .addServer(`http://localhost:${port}`)
+    .addServer('http://cinepik.fun/watchlist')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('openapi', app, document);
